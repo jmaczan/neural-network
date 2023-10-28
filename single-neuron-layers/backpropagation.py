@@ -1,32 +1,27 @@
-"""
-For educational purposes
-
-Based on 3Blue1Brown Deep Learning series
-
-https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi
-"""
+from utils import todo
 
 
-class NeuralNetwork:
-    def __init__(self):
-        self.weights = []
-        self.biases = []
-        self.input = []
-        self.output = []
-
-    def compute_neuron(self, weights, prev_layer_activations, bias, activation_function):
+class Backpropagation:
+    def compute_cost_function_gradient_vector(self):
         """
-        How to influence neuron activation:
-        - increase bias
-        - increase weights in proportion to corresponding prev_layer_activations - Hebbian theory "neurons that fire together wire together"
-        - (for this one we don't have direct control) change prev_layer_activations in proportion to corresponding weights
-
-        [?] This is what a single neuron for a single input wants
+        compute_derivative_of_cost_function_all_training_examples for all weights and biases in a single vector
         """
-        return activation_function(weights * prev_layer_activations + bias)
+        todo()
 
-    def compute_cost_function_wrt_weight(self):
+    def compute_derivative_of_cost_function_all_training_examples(self):
         """
+        Note: This is a single component of a gradient vector, computed for a specific weight
+
+        Averaging together all costs across many training examples
+
+        dC/dw(L) = 1/n * [sum from k=0 to k=n-1 of dC(k)/dw(L)]
+        """
+        todo()
+
+    def compute_derivative_of_cost_function_wrt_weight_single_training_example(self):
+        """
+        Note: This is for a single specific training example
+
         How sensitive the cost function is to small changes in our weight (a particular weight from particular layer)
 
         a.k.a.
@@ -48,11 +43,38 @@ class NeuralNetwork:
         """
         todo()
 
+    def compute_derivative_of_cost_function_wrt_bias_single_training_example(self):
+        """
+        Same as for weight but dz/db(L) = 1
+        because z(L) = w(L) * a(L - 1) + b(L) | db(L)
+
+        1. derivative of neuron activation with respect to z (da(L)/dz(L))
+        2. multiply the result by
+        3. derivative of cost function with respect to neuron activation (dC0/da(L))
+        """
+        todo()
+
+    def compute_derivative_of_cost_function_wrt_prev_layer_activation_single_training_example(
+        self,
+    ):
+        """
+        Same as for weight but dz/da(L-1) = w(L)
+        because z(L) = w(L) * a(L - 1) + b(L) | da(L - 1)
+
+        1. multiply w(L) by
+        2. derivative of neuron activation with respect to z (da(L)/dz(L))
+        3. multiply the result by
+        4. derivative of cost function with respect to neuron activation (dC0/da(L))
+        """
+        todo()
+
     def compute_cost_function(self, neuron_activation, desired_output):
         """
         Square of subtraction of neuron activation ([?] on output of neural network) from desired output (called y)
 
         C0 = (a(L) - y)^2
+
+        Cost function is a mean squared error
         """
         return (neuron_activation - desired_output) ** 2
 
@@ -63,7 +85,7 @@ class NeuralNetwork:
         dC0/da(L) = 2(a(L) - y)
         """
         return 2 * (neuron_activation - desired_output)
-    
+
     def compute_derivative_of_activation_function(self, argument):
         """
         TODO: Maybe it should be set when creating NeuralNetwork, along with activation function?
@@ -72,20 +94,19 @@ class NeuralNetwork:
         todo()
         return
 
-    def compute_derivative_of_neuron_activation_wrt_z(self, neuron_activation, z):
+    def compute_derivative_of_neuron_activation_wrt_z(self, z):
         """
         It's a derivative of activation function (whichever one we use) with z(L) as a parameter
 
         da(L)/dz(L) = activation_function'(z(L))
         """
         return self.compute_derivative_of_activation_function(z)
-    
 
+    def compute_derivative_of_z_wrt_weight(self, prev_layer_activation):
+        """
+        dz(L)/dw(L)=a(L - 1)
+        because
+        z(L) = w(L) * a(L - 1) + b(L)
+        """
 
-
-def todo():
-    """Use it when something is not yet implemented"""
-
-
-if __name__ == "__main__":
-    print(NeuralNetwork())
+        return prev_layer_activation
