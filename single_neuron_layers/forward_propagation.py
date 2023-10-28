@@ -1,6 +1,7 @@
 class ForwardPropagation:
+    @staticmethod
     def compute_neuron_activation(
-        self, weights, prev_layer_activations, bias, activation_function
+        weights, prev_layer_activations, bias, activation_function
     ):
         """
         How to influence neuron activation:

@@ -17,3 +17,9 @@ install anaconda, so you have `conda` available in shell
 #
 #     $ conda deactivate
 ```
+
+export env settings to .yml:
+
+```
+conda env export --from-history > environment.yml
+```

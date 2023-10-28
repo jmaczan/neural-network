@@ -1,0 +1,6 @@
+name: nn
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+prefix: /Users/jedrzej/mambaforge/envs/nn
