@@ -7,8 +7,9 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 """
 
 
-from forward_propagation import ForwardPropagation
-from utils import todo
+from src.activation_functions import rectifier
+from src.single_neuron_layers.forward_propagation import ForwardPropagation
+from src.utils.utils import todo
 
 
 class FeedforwardNeuralNetwork:
@@ -37,17 +38,12 @@ class FeedforwardNeuralNetwork:
             input=self.input,
             weights=self.weights,
             biases=self.biases,
-            activation_function=self.rectifier,
+            activation_function=rectifier,
         )
 
         print(self.output)
 
         todo()
-
-    @staticmethod
-    def rectifier(x):
-        """ReLU"""
-        return 0 if x < 0 else x
 
 
 if __name__ == "__main__":
