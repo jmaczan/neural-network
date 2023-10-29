@@ -33,42 +33,22 @@ class FeedforwardNeuralNetwork:
     def predict(self, input):
         self.input = input
 
-        input_activation = ForwardPropagation().compute_neuron_activation(
-            weights=self.weights[0][0],
-            prev_layer_activations=self.input,
-            bias=self.biases[0][0],
+        self.output = ForwardPropagation().predict(
+            input=self.input,
+            weights=self.weights,
+            biases=self.biases,
             activation_function=self.rectifier,
         )
 
-        first_hidden_layer_activation = ForwardPropagation().compute_neuron_activation(
-            weights=self.weights[1][0],
-            prev_layer_activations=input_activation,
-            bias=self.biases[1][0],
-            activation_function=self.rectifier,
-        )
-
-        second_hidden_layer_activation = ForwardPropagation().compute_neuron_activation(
-            weights=self.weights[2][0],
-            prev_layer_activations=first_hidden_layer_activation,
-            bias=self.biases[2][0],
-            activation_function=self.rectifier,
-        )
-
-        output_activation = ForwardPropagation().compute_neuron_activation(
-            weights=self.weights[3][0],
-            prev_layer_activations=second_hidden_layer_activation,
-            bias=self.biases[3][0],
-            activation_function=self.rectifier,
-        )
-
-        print(output_activation)
+        print(self.output)
 
         todo()
 
     @staticmethod
     def rectifier(x):
+        """ReLU"""
         return 0 if x < 0 else x
 
 
 if __name__ == "__main__":
-    print(FeedforwardNeuralNetwork().predict(3))
+    FeedforwardNeuralNetwork().predict(3)
