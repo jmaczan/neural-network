@@ -1,7 +1,22 @@
 from src.utils.utils import todo
 
+default_learning_rate = 0.01
+
 
 class Backpropagation:
+    def backpropagate(self, weights, biases, learning_rate):
+        self.update_weights_and_biases(
+            weights=weights,
+            biases=biases,
+            gradient_vector=self.compute_cost_function_gradient_vector(),
+            learning_rate=learning_rate,
+        )
+
+    def update_weights_and_biases(
+        self, weights, biases, gradient_vector, learning_rate=default_learning_rate
+    ):
+        todo()
+
     def compute_cost_function_gradient_vector(self):
         """
         compute_derivative_of_cost_function_all_training_examples for all weights and biases in a single vector

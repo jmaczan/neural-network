@@ -8,15 +8,14 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 
 
 from src.activation_functions import rectifier
-from src.single_neuron_layers.forward_propagation import ForwardPropagation
+from src.neural_network.backpropagation import Backpropagation
+from src.neural_network.forward_propagation import ForwardPropagation
 from src.utils.utils import todo
 
 
 class FeedforwardNeuralNetwork:
     """
     Feedforward neural network (FNN) with backpropagation - a "vanilla" neural network
-
-    This implementation has a single input, two hidden layers with single neuron each and a single output
     """
 
     def __init__(self):
@@ -29,6 +28,8 @@ class FeedforwardNeuralNetwork:
         todo()
 
     def train(self):
+        Backpropagation().backpropagate(weights=self.weights, biases=self.biases)
+
         todo()
 
     def predict(self, input):

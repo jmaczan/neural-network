@@ -1,11 +1,11 @@
 import unittest
 from src.activation_functions.rectifier import rectifier
 
-from src.single_neuron_layers.forward_propagation import ForwardPropagation
+from src.neural_network.forward_propagation import ForwardPropagation
 
 
 class TestForwardPropagation(unittest.TestCase):
-    def test_single_neuon_layer_prediction(self):
+    def test_prediction(self):
         # given
         input = 3
         weights = [[1.5], [-0.5], [0.4], [-0.7]]
