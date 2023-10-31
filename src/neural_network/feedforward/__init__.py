@@ -1,3 +1,3 @@
 from . import backpropagation
-from . import feedforward
+from . import ffnn
 from . import forward_propagation

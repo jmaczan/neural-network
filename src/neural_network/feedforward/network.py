@@ -35,7 +35,18 @@ class FeedforwardNeuralNetwork:
         loss_function=mean_squared_error,
         activation_function=rectifier,
         output_activation_function=rectifier,  # TODO: create additional functions like softmax
+        learning_rate=0.01,
+        batch_size=10,
     ):
+        # get up to batch_size elements from training_set
+        # compute how many elements are still waiting to be processed (len(training_set) - batch_size)
+        # compute network outputs for all elements in batch_size
+        # compute loss for each of them
+        # compute one loss using all losses
+        # compute gradients of loss function with respect to all weights and biases using chain rule
+        # update weights and biases
+        # if there are any elements to be processed in training_set, iterate to first point
+
         Backpropagation().backpropagate(weights=self.weights, biases=self.biases)
 
         todo()
