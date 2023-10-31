@@ -1,7 +1,7 @@
 import unittest
-from src.activation_functions.rectifier import rectifier
+from src.activation_function.rectifier import rectifier
 
-from src.neural_network.forward_propagation import ForwardPropagation
+from src.neural_network.feedforward.forward_propagation import ForwardPropagation
 
 
 class TestForwardPropagation(unittest.TestCase):

@@ -7,9 +7,10 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 """
 
 
-from src.activation_functions import rectifier
-from src.neural_network.backpropagation import Backpropagation
-from src.neural_network.forward_propagation import ForwardPropagation
+from src.activation_function import rectifier
+from src.loss_function.mean_squared_error import mean_squared_error
+from src.neural_network.feedforward.backpropagation import Backpropagation
+from src.neural_network.feedforward.forward_propagation import ForwardPropagation
 from src.utils.utils import todo
 
 
@@ -27,7 +28,14 @@ class FeedforwardNeuralNetwork:
         # TODO: initialize random weights and biases
         todo()
 
-    def train(self):
+    def train(
+        self,
+        training_set,
+        labels,
+        loss_function=mean_squared_error,
+        activation_function=rectifier,
+        output_activation_function=rectifier,  # TODO: create additional functions like softmax
+    ):
         Backpropagation().backpropagate(weights=self.weights, biases=self.biases)
 
         todo()
