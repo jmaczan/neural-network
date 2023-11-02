@@ -4,20 +4,14 @@ default_learning_rate = 0.01
 
 
 class Backpropagation:
-    def backpropagate(self, weights, biases, learning_rate):
-        self.update_weights_and_biases(
-            weights=weights,
-            biases=biases,
-            gradient_vector=self.compute_cost_function_gradient_vector(),
-            learning_rate=learning_rate,
-        )
-
+    @staticmethod
     def update_weights_and_biases(
         self, weights, biases, gradient_vector, learning_rate=default_learning_rate
     ):
         todo()
 
-    def compute_cost_function_gradient_vector(self):
+    @staticmethod
+    def compute_cost_function_gradient_vector():
         """
         compute_derivative_of_cost_function_all_training_examples for all weights and biases in a single vector
         """
@@ -82,16 +76,6 @@ class Backpropagation:
         4. derivative of cost function with respect to neuron activation (dC0/da(L))
         """
         todo()
-
-    def compute_cost_function(self, neuron_activation, desired_output):
-        """
-        Square of subtraction of neuron activation ([?] on output of neural network) from desired output (called y)
-
-        C0 = (a(L) - y)^2
-
-        Cost function is a mean squared error
-        """
-        return (neuron_activation - desired_output) ** 2
 
     def compute_derivative_of_loss_function_wrt_neuron_activation(
         self, neuron_activation, desired_output

@@ -17,7 +17,9 @@ class ForwardPropagation:
         return activation_function(weights * prev_layer_activations + bias)
 
     @staticmethod
-    def predict(input, weights, biases, activation_function):
+    def predict(
+        input, weights, biases, activation_function, output_activation_function
+    ):
         input_activation = ForwardPropagation().compute_neuron_activation(
             weights=weights[0][0],
             prev_layer_activations=input,
@@ -46,6 +48,4 @@ class ForwardPropagation:
             activation_function=activation_function,
         )
 
-        todo()
-
-        return output_activation
+        return output_activation_function(output_activation)
