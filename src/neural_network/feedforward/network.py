@@ -9,7 +9,6 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 
 from src.activation_function import rectifier
 from src.activation_function.softmax import softmax
-from src.loss_function.mean_squared_error import mean_squared_error
 from src.neural_network.feedforward.backpropagation import Backpropagation
 from src.neural_network.feedforward.forward_propagation import ForwardPropagation
 from src.utils.utils import todo
@@ -22,18 +21,20 @@ class FeedforwardNeuralNetwork:
 
     def __init__(self):
         self.input = []
-        self.weights = [[1.5], [-0.5], [0.4], [-0.7]]
+        self.weights = [
+            [1.5],
+            [-0.5],
+            [0.4],
+            [-0.7],
+        ]
         self.biases = [[-0.6], [-0.2], [1.1], [1.2]]
-        self.output = []
-
         # TODO: initialize random weights and biases
-        todo()
+        self.output = []
 
     def train(
         self,
         training_set=[],
         labels=[],
-        loss_function=mean_squared_error,
         activation_function=rectifier,
         output_activation_function=softmax,
         learning_rate=0.01,
@@ -70,7 +71,6 @@ class FeedforwardNeuralNetwork:
                 loss = Backpropagation().compute_loss(
                     predictions=predictions,
                     labels=mini_batch_labels,
-                    loss_function=loss_function,
                 )
 
                 gradient_vector = (
@@ -104,8 +104,6 @@ class FeedforwardNeuralNetwork:
         )
 
         print(self.output)
-
-        todo()
 
 
 if __name__ == "__main__":

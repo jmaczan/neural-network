@@ -6,4 +6,8 @@ def mean_squared_error(received, expected):
 
     Often used as a cost function
     """
-    return (received - expected) ** 2
+    if len(received) != len(expected):
+        raise Exception(
+            "Mean Squared Error cannot be computed - incompatibile dimensions of received and expected values"
+        )
+    return (1 / len(received)) * sum((received - expected) ** 2)

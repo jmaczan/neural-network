@@ -1,4 +1,5 @@
 from src.utils.utils import todo
+from src.loss_function.mean_squared_error import mean_squared_error
 
 default_learning_rate = 0.01
 
@@ -6,9 +7,16 @@ default_learning_rate = 0.01
 class Backpropagation:
     @staticmethod
     def update_weights_and_biases(
-        self, weights, biases, gradient_vector, learning_rate=default_learning_rate
+        weights, biases, gradient_vector, learning_rate=default_learning_rate
     ):
-        todo()
+        return (
+            weights - learning_rate * gradient_vector,
+            biases - learning_rate * gradient_vector,
+        )
+
+    @staticmethod
+    def compute_loss(predictions, labels):
+        return mean_squared_error(received=predictions, expected=labels)
 
     @staticmethod
     def compute_cost_function_gradient_vector():
