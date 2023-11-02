@@ -12,6 +12,7 @@ from src.activation_function.softmax import softmax
 from src.neural_network.feedforward.backpropagation import Backpropagation
 from src.neural_network.feedforward.forward_propagation import ForwardPropagation
 from src.utils.utils import todo
+from random import uniform
 
 
 class FeedforwardNeuralNetwork:
@@ -19,20 +20,16 @@ class FeedforwardNeuralNetwork:
     Feedforward neural network (FNN) with backpropagation - a "vanilla" neural network
     """
 
-    def __init__(self):
+    def __init__(self, weights, biases):
         self.input = []
-        self.weights = [
-            [1.5],
-            [-0.5],
-            [0.4],
-            [-0.7],
-        ]
-        self.biases = [[-0.6], [-0.2], [1.1], [1.2]]
-        # TODO: initialize random weights and biases
         self.output = []
+        self.weights = weights if weights is not None else []
+        self.biases = biases if biases is not None else []
 
     def train(
         self,
+        weights,
+        biases,
         training_set=[],
         labels=[],
         activation_function=rectifier,
@@ -40,10 +37,28 @@ class FeedforwardNeuralNetwork:
         learning_rate=0.01,
         batch_size=10,
         epochs=1,
+        hidden_layers=[],  # define number of hidden layers and number of neurons in each hidden layer, for instance [8, 6] means that network will have 2 hidden layers, first with 8 neurons and second with 6 neurons
     ):
-        if len(training_set) != len(labels):
-            print("Labels dimension doesn't match training set dimension")
-            return
+        self.__validate_train_input(
+            weights=weights,
+            biases=biases,
+            training_set=training_set,
+            labels=labels,
+            learning_rate=learning_rate,
+            batch_size=batch_size,
+            epochs=epochs,
+            hidden_layers=hidden_layers,
+        )
+
+        if weights is None or len(weights) == 0:
+            weights = [
+                [uniform(0.0, 2.0) for _ in range(len(training_set[0]))],
+                (
+                    [uniform(0.0, 2.0) for neuron in range(hidden_layer)]
+                    for hidden_layer in hidden_layers
+                ),
+                [uniform(0.0, 2.0) for _ in range(len(labels[0]))],
+            ]
 
         epoch_index = 0
 
@@ -104,6 +119,35 @@ class FeedforwardNeuralNetwork:
         )
 
         print(self.output)
+
+    def __validate_train_input(
+        self,
+        training_set,
+        labels,
+        learning_rate,
+        batch_size,
+        epochs,
+        hidden_layers,
+    ):
+        if len(training_set) != len(labels):
+            raise Exception("Labels dimension doesn't match training set dimension")
+
+        if learning_rate < 0:
+            raise Exception("Learning rate should be a positive float number")
+
+        if batch_size < 0:
+            raise Exception("Batch size should be a positive float number")
+
+        if batch_size > len(training_set):
+            raise Exception("Batch size can't be bigger than size of training set")
+
+        if epochs < 0:
+            raise Exception("Number of epochs should be a positive float number")
+
+        if len(hidden_layers) == 0:
+            raise Exception(
+                "Please define number of hidden layers and number of neurons in each hidden layer, for instance [8, 6] means that network will have 2 hidden layers, first with 8 neurons and second with 6 neurons"
+            )
 
 
 if __name__ == "__main__":
