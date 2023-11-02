@@ -10,4 +10,6 @@ def mean_squared_error(received, expected):
         raise Exception(
             "Mean Squared Error cannot be computed - incompatibile dimensions of received and expected values"
         )
-    return (1 / len(received)) * sum((received - expected) ** 2)
+    return (1 / len(received)) * sum(
+        (received - expected) ** 2
+    )  # won't work out of the box with arrays I guess, needs some manual parsing

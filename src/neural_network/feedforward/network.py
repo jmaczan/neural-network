@@ -50,15 +50,12 @@ class FeedforwardNeuralNetwork:
             hidden_layers=hidden_layers,
         )
 
-        if weights is None or len(weights) == 0:
-            weights = [
-                [uniform(0.0, 2.0) for _ in range(len(training_set[0]))],
-                (
-                    [uniform(0.0, 2.0) for neuron in range(hidden_layer)]
-                    for hidden_layer in hidden_layers
-                ),
-                [uniform(0.0, 2.0) for _ in range(len(labels[0]))],
-            ]
+        self.__initialize_weights(
+            weights=weights,
+            training_set=training_set,
+            hidden_layers=hidden_layers,
+            labels=labels,
+        )
 
         epoch_index = 0
 
@@ -148,6 +145,23 @@ class FeedforwardNeuralNetwork:
             raise Exception(
                 "Please define number of hidden layers and number of neurons in each hidden layer, for instance [8, 6] means that network will have 2 hidden layers, first with 8 neurons and second with 6 neurons"
             )
+
+    def __initialize_weights(self, weights, training_set, hidden_layers, labels):
+        if len(weights) > 0:
+            self.weights = weights
+            return
+
+        self.weights = [
+            (
+                [uniform(0.0, 2.0) for _ in range(len(training_set[0]))]
+                for _ in range(hidden_layers[0])
+            ),
+            (
+                [uniform(0.0, 2.0) for _ in range(hidden_layer)]
+                for index, hidden_layer in enumerate(hidden_layers)
+            ),
+            [uniform(0.0, 2.0) for _ in range(len(labels[0]))],
+        ]
 
 
 if __name__ == "__main__":
