@@ -152,15 +152,21 @@ class FeedforwardNeuralNetwork:
             return
 
         self.weights = [
-            (
+            [
                 [uniform(0.0, 2.0) for _ in range(len(training_set[0]))]
                 for _ in range(hidden_layers[0])
-            ),
+            ],
             (
-                [uniform(0.0, 2.0) for _ in range(hidden_layer)]
-                for index, hidden_layer in enumerate(hidden_layers)
+                [
+                    [uniform(0.0, 2.0) for _ in range(hidden_layer)]
+                    for _ in range(hidden_layer[index + 1])
+                ]
+                for index, hidden_layer in enumerate(hidden_layers[:-1])
             ),
-            [uniform(0.0, 2.0) for _ in range(len(labels[0]))],
+            [
+                [uniform(0.0, 2.0) for _ in range(len(labels[0]))]
+                for _ in range(hidden_layers[-1])
+            ],
         ]
 
 
