@@ -16,7 +16,7 @@ class Backpropagation:
 
     @staticmethod
     def compute_loss(predictions, labels):
-        return mean_squared_error(received=predictions, expected=labels)
+        return mean_squared_error(predictions=predictions, labels=labels)
 
     @staticmethod
     def compute_cost_function_gradient_vector():

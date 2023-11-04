@@ -1,4 +1,4 @@
-def mean_squared_error(received, expected):
+def mean_squared_error(predictions, labels):
     """
     Square of subtraction of neuron activation (an output of neural network) from desired output (called y)
 
@@ -6,10 +6,15 @@ def mean_squared_error(received, expected):
 
     Often used as a cost function
     """
-    if len(received) != len(expected):
+    if len(predictions) != len(labels):
         raise Exception(
             "Mean Squared Error cannot be computed - incompatibile dimensions of received and expected values"
         )
-    return (1 / len(received)) * sum(
-        (received - expected) ** 2
-    )  # won't work out of the box with arrays I guess, needs some manual parsing
+    return (1 / len(predictions)) * sum(
+        list(
+            map(
+                lambda index, prediction: (prediction - labels[index]) ** 2,
+                enumerate(predictions),
+            )
+        )
+    )
