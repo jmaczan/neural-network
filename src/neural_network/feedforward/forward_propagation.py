@@ -45,10 +45,10 @@ class ForwardPropagation:
     ):
         input_activations = list(
             map(
-                lambda index, weight: ForwardPropagation().compute_neuron_activation(
-                    weights=weight[index],
+                lambda index_weight: ForwardPropagation().compute_neuron_activation(
+                    weights=index_weight[1],
                     prev_layer_activations=input_activations,
-                    bias=biases[0][index],
+                    bias=biases[0][index_weight[0]],
                     activation_function=activation_function,
                 ),
                 enumerate(weights[0]),
@@ -60,10 +60,10 @@ class ForwardPropagation:
         for hidden_layer_index in range(len(weights) - 1):
             current_hidden_layer_activations = list(
                 map(
-                    lambda index, weight: ForwardPropagation().compute_neuron_activation(
-                        weights=weight[index],
+                    lambda index_weight: ForwardPropagation().compute_neuron_activation(
+                        weights=index_weight[1],
                         prev_layer_activations=current_hidden_layer_activations,
-                        bias=biases[hidden_layer_index + 1][index],
+                        bias=biases[hidden_layer_index + 1][index_weight[0]],
                         activation_function=activation_function,
                     ),
                     enumerate(weights[hidden_layer_index + 1]),

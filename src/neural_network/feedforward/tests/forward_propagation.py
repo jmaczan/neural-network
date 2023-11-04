@@ -1,23 +1,39 @@
+from random import seed
 import unittest
 from src.activation_function.rectifier import rectifier
+from src.activation_function.softmax import softmax
 
 from src.neural_network.feedforward.forward_propagation import ForwardPropagation
+from src.neural_network.feedforward.initialize import (
+    initialize_biases,
+    initialize_weights,
+)
 
 
 class TestForwardPropagation(unittest.TestCase):
     def test_prediction(self):
+        seed(42)  # fixed randomity
+
         # given
-        input = 3
-        weights = [[1.5], [-0.5], [0.4], [-0.7]]
-        biases = [[-0.6], [-0.2], [1.1], [1.2]]
-        output = []
+        input_activations = [17, 24]
+        hidden_layers = [8, 4]
+        weights = initialize_weights(
+            input_layer_size=len(input_activations),
+            hidden_layers=hidden_layers,
+            output_layer_size=3,
+        )
+        biases = initialize_biases(
+            hidden_layers=hidden_layers,
+            output_layer_size=3,
+        )
 
         # when
-        output = ForwardPropagation().predict(
-            input_activations=input,
+        output = ForwardPropagation().predict_single_activation(
+            input_activations=input_activations,
             weights=weights,
             biases=biases,
             activation_function=rectifier,
+            output_activation_function=softmax,
         )
 
         # then

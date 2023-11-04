@@ -9,6 +9,7 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 
 from src.activation_function import rectifier
 from src.activation_function.softmax import softmax
+from src.loss_function.mean_squared_error import mean_squared_error
 from src.neural_network.feedforward.backpropagation import Backpropagation
 from src.neural_network.feedforward.forward_propagation import ForwardPropagation
 from src.neural_network.feedforward.initialize import (
@@ -83,7 +84,7 @@ class FeedforwardNeuralNetwork:
                 mini_batch_labels = labels[batch_start:batch_end]
 
                 predictions = ForwardPropagation().predict(
-                    input_activations=mini_batch,
+                    input_activations=mini_batch,  # TODO: here I assume array of input vectors, but in predict method in the same network I assume it to be just a single input vector
                     weights=self.weights,
                     biases=self.biases,
                     activation_function=activation_function,
@@ -93,6 +94,7 @@ class FeedforwardNeuralNetwork:
                 loss = Backpropagation().compute_loss(
                     predictions=predictions,
                     labels=mini_batch_labels,
+                    loss_function=mean_squared_error,
                 )
 
                 gradient_vector = (
@@ -118,7 +120,7 @@ class FeedforwardNeuralNetwork:
     def predict(self, input):
         self.input = input
 
-        self.output = ForwardPropagation().predict(
+        self.output = ForwardPropagation().predict_single_activation(  # predict was used here before, but I think predict_single_activation is correct in this context
             input_activations=self.input,
             weights=self.weights,
             biases=self.biases,

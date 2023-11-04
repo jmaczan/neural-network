@@ -1,5 +1,4 @@
 from src.utils.utils import todo
-from src.loss_function.mean_squared_error import mean_squared_error
 
 default_learning_rate = 0.01
 
@@ -15,8 +14,8 @@ class Backpropagation:
         )
 
     @staticmethod
-    def compute_loss(predictions, labels):
-        return mean_squared_error(predictions=predictions, labels=labels)
+    def compute_loss(predictions, labels, loss_function):
+        return loss_function(predictions=predictions, labels=labels)
 
     @staticmethod
     def compute_cost_function_gradient_vector():
