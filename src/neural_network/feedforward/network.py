@@ -11,7 +11,10 @@ from src.activation_function import rectifier
 from src.activation_function.softmax import softmax
 from src.neural_network.feedforward.backpropagation import Backpropagation
 from src.neural_network.feedforward.forward_propagation import ForwardPropagation
-from src.neural_network.feedforward.initialize import initialize_random_weights
+from src.neural_network.feedforward.initialize import (
+    initialize_biases,
+    initialize_weights,
+)
 from src.neural_network.feedforward.validate import validate_train_input
 from src.utils.utils import todo
 
@@ -51,9 +54,15 @@ class FeedforwardNeuralNetwork:
             hidden_layers=hidden_layers,
         )
 
-        self.weights = initialize_random_weights(
+        self.weights = initialize_weights(
             weights=weights,
             input_layer_size=len(training_set[0]),
+            hidden_layers=hidden_layers,
+            output_layer_size=len(labels[0]),
+        )
+
+        self.biases = initialize_biases(
+            biases=biases,
             hidden_layers=hidden_layers,
             output_layer_size=len(labels[0]),
         )

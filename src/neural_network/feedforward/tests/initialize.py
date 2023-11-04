@@ -1,9 +1,12 @@
 import unittest
 
-from src.neural_network.feedforward.initialize import initialize_random_weights
+from src.neural_network.feedforward.initialize import (
+    initialize_biases,
+    initialize_weights,
+)
 
 
-class TestWeightInitialize(unittest.TestCase):
+class TestWeightsInitialization(unittest.TestCase):
     """
     Important thing to remember:
     unit tests need to start with "test_" in order to be discovered by python -m unittest -v src/neural_network/feedforward/tests/initialize.py
@@ -17,7 +20,7 @@ class TestWeightInitialize(unittest.TestCase):
         weights = [[0], [1]]
 
         # when
-        output = initialize_random_weights(
+        output = initialize_weights(
             input_layer_size=input_layer_size,
             hidden_layers=hidden_layers,
             output_layer_size=output_layer_size,
@@ -33,42 +36,8 @@ class TestWeightInitialize(unittest.TestCase):
         hidden_layers = [3, 2]
         output_layer_size = 2
 
-        expected_weights = [
-            [
-                [
-                    1.8171921270060511,
-                    0.8917305605062487,
-                    0.42330929962290154,
-                    0.41228386582543575,
-                    0.9128895166563964,
-                ],
-                [
-                    0.662208017041616,
-                    0.6152839296205794,
-                    1.0470483775855672,
-                    1.5066555088041018,
-                    1.129147040526466,
-                ],
-                [
-                    0.9720204830387191,
-                    1.3872236277768013,
-                    1.216666497305848,
-                    0.04622559191715814,
-                    0.7815154751745081,
-                ],
-            ],
-            [
-                [0.5860722291297842, 1.2754204546371686, 1.1756673882433955],
-                [0.21799442672806757, 1.8766441711236053, 0.8904777009611113],
-            ],
-            [
-                [1.8267175719906732, 1.1994804863252007],
-                [1.703879782270657, 0.9874842537391955],
-            ],
-        ]
-
         # when
-        output = initialize_random_weights(
+        output = initialize_weights(
             input_layer_size=input_layer_size,
             hidden_layers=hidden_layers,
             output_layer_size=output_layer_size,
@@ -99,6 +68,56 @@ class TestWeightInitialize(unittest.TestCase):
         # output layer should have 2 weights from last hidden layer for each of 2 output neurons
         self.assertEqual(len(output[2][0]), 2)
         self.assertEqual(len(output[2][1]), 2)
+
+
+class TestBiasesInitialization(unittest.TestCase):
+    """
+    Important thing to remember:
+    unit tests need to start with "test_" in order to be discovered by python -m unittest -v src/neural_network/feedforward/tests/initialize.py
+    """
+
+    def test_return_biases_if_not_empty(self):
+        # given
+        hidden_layers = [3, 2]
+        output_layer_size = 2
+        biases = [[0], [1]]
+
+        # when
+        output = initialize_biases(
+            hidden_layers=hidden_layers,
+            output_layer_size=output_layer_size,
+            biases=biases,
+        )
+
+        # then
+        self.assertEqual(output, biases)
+
+    def test_calculated_biases(self):
+        # given
+        hidden_layers = [3, 5, 2]
+        output_layer_size = 2
+
+        # when
+        output = initialize_biases(
+            hidden_layers=hidden_layers,
+            output_layer_size=output_layer_size,
+        )
+
+        # then
+        # biases of neurons in first hidden, second hidden and output
+        self.assertEqual(len(output), 4)
+
+        # number of biases in first hidden layer should be equal to number of neurons in this layer
+        self.assertEqual(len(output[0]), 3)
+
+        # number of biases in second hidden layer should be equal to number of neurons in this layer
+        self.assertEqual(len(output[1]), 5)
+
+        # number of biases in third layer should be equal to number of neurons in this layer
+        self.assertEqual(len(output[2]), 2)
+
+        # number of biases in output layer should be equal to number of neurons in this layer
+        self.assertEqual(len(output[3]), 2)
 
 
 if "__name__" == "__main__":
