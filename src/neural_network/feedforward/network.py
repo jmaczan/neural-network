@@ -83,7 +83,7 @@ class FeedforwardNeuralNetwork:
                 mini_batch_labels = labels[batch_start:batch_end]
 
                 predictions = ForwardPropagation().predict(
-                    input=mini_batch,
+                    input_activations=mini_batch,
                     weights=self.weights,
                     biases=self.biases,
                     activation_function=activation_function,
@@ -119,7 +119,7 @@ class FeedforwardNeuralNetwork:
         self.input = input
 
         self.output = ForwardPropagation().predict(
-            input=self.input,
+            input_activations=self.input,
             weights=self.weights,
             biases=self.biases,
             activation_function=rectifier,

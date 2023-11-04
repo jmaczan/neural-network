@@ -14,7 +14,7 @@ class TestForwardPropagation(unittest.TestCase):
 
         # when
         output = ForwardPropagation().predict(
-            input=input,
+            input_activations=input,
             weights=weights,
             biases=biases,
             activation_function=rectifier,

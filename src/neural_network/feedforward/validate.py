@@ -22,7 +22,7 @@ def validate_train_input(
     if epochs < 0:
         raise Exception("Number of epochs should be a positive float number")
 
-    if len(hidden_layers) == 0:
+    if len(hidden_layers) < 1:
         raise Exception(
             "Please define number of hidden layers and number of neurons in each hidden layer, for instance [8, 6] means that network will have 2 hidden layers, first with 8 neurons and second with 6 neurons"
         )
