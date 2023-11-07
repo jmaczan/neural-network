@@ -15,7 +15,7 @@ class TestForwardPropagation(unittest.TestCase):
         seed(42)  # fixed randomity
 
         # given
-        input_activations = [17, 24]
+        input_activations = [1, 1.5]
         hidden_layers = [8, 4]
         weights = initialize_weights(
             input_layer_size=len(input_activations),
@@ -37,7 +37,7 @@ class TestForwardPropagation(unittest.TestCase):
         )
 
         # then
-        self.assertEqual(output, 0.42999999999999994)
+        self.assertEqual(output, [1.3991527840897747e-17, 1.0, 1.5500617547033215e-22])
 
 
 if "__name__" == "__main__":

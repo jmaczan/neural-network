@@ -34,7 +34,7 @@ class TestWeightsInitialization(unittest.TestCase):
         # given
         input_layer_size = 5
         hidden_layers = [3, 2]
-        output_layer_size = 2
+        output_layer_size = 4
 
         # when
         output = initialize_weights(
@@ -63,11 +63,13 @@ class TestWeightsInitialization(unittest.TestCase):
         self.assertEqual(len(output[1][1]), 3)
 
         # last array contains weights from last hidden layer to output layer
-        self.assertEqual(len(output[2]), 2)
+        self.assertEqual(len(output[2]), 4)
 
-        # output layer should have 2 weights from last hidden layer for each of 2 output neurons
+        # output layer should have 2 weights from last hidden layer for each of 4 output neurons
         self.assertEqual(len(output[2][0]), 2)
         self.assertEqual(len(output[2][1]), 2)
+        self.assertEqual(len(output[2][2]), 2)
+        self.assertEqual(len(output[2][3]), 2)
 
 
 class TestBiasesInitialization(unittest.TestCase):

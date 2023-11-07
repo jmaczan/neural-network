@@ -23,8 +23,8 @@ def initialize_weights(
             for index in range(len(hidden_layers) - 1)
         ],
         [
-            [uniform(0.0, 2.0) for _ in range(output_layer_size)]
-            for _ in range(hidden_layers[-1])
+            [uniform(0.0, 2.0) for _ in range(hidden_layers[-1])]
+            for _ in range(output_layer_size)
         ],
     ]
 
