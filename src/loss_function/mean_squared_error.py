@@ -6,6 +6,8 @@ def mean_squared_error(predictions, labels):
 
     Often used as a cost function
     """
+    print("predictions", predictions)
+    print("labels", labels)
     if len(predictions) != len(labels):
         raise Exception(
             "Mean Squared Error cannot be computed - incompatibile dimensions of received and expected values"
@@ -13,7 +15,24 @@ def mean_squared_error(predictions, labels):
     return (1 / len(predictions)) * sum(
         list(
             map(
-                lambda index, prediction: (prediction - labels[index]) ** 2,
+                lambda index_prediction_vector: (
+                    1
+                    / len(index_prediction_vector[1])
+                    * sum(
+                        list(
+                            map(
+                                lambda index_prediction: (
+                                    index_prediction[1]
+                                    - labels[index_prediction_vector[0]][
+                                        index_prediction[0]
+                                    ]
+                                )
+                                ** 2,
+                                enumerate(index_prediction_vector[1]),
+                            )
+                        )
+                    )
+                ),
                 enumerate(predictions),
             )
         )

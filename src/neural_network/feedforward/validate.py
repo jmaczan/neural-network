@@ -1,4 +1,3 @@
-@staticmethod
 def validate_train_input(
     training_set,
     labels,

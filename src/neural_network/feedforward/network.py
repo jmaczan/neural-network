@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 """
 
 
-from src.activation_function import rectifier
+from src.activation_function.rectifier import rectifier
 from src.activation_function.softmax import softmax
 from src.loss_function.mean_squared_error import mean_squared_error
 from src.neural_network.feedforward.backpropagation import Backpropagation
@@ -16,6 +16,7 @@ from src.neural_network.feedforward.initialize import (
     initialize_biases,
     initialize_weights,
 )
+from src.neural_network.feedforward.self_heal import self_heal_train_input
 from src.neural_network.feedforward.validate import validate_train_input
 from src.utils.utils import todo
 
@@ -33,20 +34,22 @@ class FeedforwardNeuralNetwork:
 
     def train(
         self,
-        weights,
-        biases,
-        training_set=[],
-        labels=[],
+        hidden_layers,  # define number of hidden layers and number of neurons in each hidden layer, for instance [8, 6] means that network will have 2 hidden layers, first with 8 neurons and second with 6 neurons
+        training_set,
+        labels,
+        weights=[],
+        biases=[],
         activation_function=rectifier,
         output_activation_function=softmax,
         learning_rate=0.01,
         batch_size=10,
         epochs=1,
-        hidden_layers=[],  # define number of hidden layers and number of neurons in each hidden layer, for instance [8, 6] means that network will have 2 hidden layers, first with 8 neurons and second with 6 neurons
     ):
+        (batch_size, training_set) = self_heal_train_input(
+            batch_size=batch_size, training_set=training_set
+        )
+
         validate_train_input(
-            weights=weights,
-            biases=biases,
             training_set=training_set,
             labels=labels,
             learning_rate=learning_rate,
