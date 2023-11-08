@@ -6,8 +6,6 @@ def mean_squared_error(predictions, labels):
 
     Often used as a cost function
     """
-    print("predictions", predictions)
-    print("labels", labels)
     if len(predictions) != len(labels):
         raise Exception(
             "Mean Squared Error cannot be computed - incompatibile dimensions of received and expected values"
