@@ -1,3 +1,4 @@
+from random import seed
 import unittest
 
 from src.neural_network.feedforward.network import FeedforwardNeuralNetwork
@@ -5,10 +6,9 @@ from src.neural_network.feedforward.network import FeedforwardNeuralNetwork
 
 class TestNetwork(unittest.TestCase):
     def test_train(self):
+        seed(42)
         # given
-        input_layer_size = 5
         hidden_layers = [3, 2]
-        output_layer_size = 2
         weights = [[0], [1]]
         network = FeedforwardNeuralNetwork()
 

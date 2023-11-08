@@ -31,6 +31,7 @@ class FeedforwardNeuralNetwork:
         self.output = []
         self.weights = weights
         self.biases = biases
+        self.activations = []
 
     def train(
         self,
@@ -86,7 +87,7 @@ class FeedforwardNeuralNetwork:
                 mini_batch = training_set[batch_start:batch_end]
                 mini_batch_labels = labels[batch_start:batch_end]
 
-                predictions = ForwardPropagation().predict(
+                (activations, predictions) = ForwardPropagation().forward_pass(
                     input_activations=mini_batch,  # TODO: here I assume array of input vectors, but in predict method in the same network I assume it to be just a single input vector
                     weights=self.weights,
                     biases=self.biases,
@@ -94,11 +95,17 @@ class FeedforwardNeuralNetwork:
                     output_activation_function=output_activation_function,
                 )
 
+                self.activations = activations
+
+                print(self.activations)
+
                 loss = Backpropagation().compute_loss(
                     predictions=predictions,
                     labels=mini_batch_labels,
                     loss_function=mean_squared_error,
                 )
+
+                print("Loss:", loss)
 
                 gradient_vector = (
                     Backpropagation().compute_cost_function_gradient_vector(

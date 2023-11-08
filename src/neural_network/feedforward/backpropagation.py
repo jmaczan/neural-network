@@ -11,7 +11,7 @@ class Backpropagation:
         return (
             weights - learning_rate * gradient_vector,
             biases - learning_rate * gradient_vector,
-        )
+        )  # TODO: operate on vectors instead, because this won't work
 
     @staticmethod
     def compute_loss(predictions, labels, loss_function):
