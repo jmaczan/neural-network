@@ -15,25 +15,27 @@ def mean_squared_error(predictions, labels):
     return (1 / len(predictions)) * sum(
         list(
             map(
-                lambda index_prediction_vector: (
-                    1
-                    / len(index_prediction_vector[1])
-                    * sum(
-                        list(
-                            map(
-                                lambda index_prediction: (
-                                    index_prediction[1]
-                                    - labels[index_prediction_vector[0]][
-                                        index_prediction[0]
-                                    ]
-                                )
-                                ** 2,
-                                enumerate(index_prediction_vector[1]),
-                            )
-                        )
-                    )
-                ),
+                compute_single_prediction(labels),
                 enumerate(predictions),
+            )
+        )
+    )
+
+
+def compute_single_prediction(labels):
+    return lambda index_prediction: (
+        1
+        / len(index_prediction[1])
+        * sum(
+            list(
+                map(
+                    lambda index_prediction: (
+                        index_prediction[1]
+                        - labels[index_prediction[0]][index_prediction[0]]
+                    )
+                    ** 2,
+                    enumerate(index_prediction[1]),
+                )
             )
         )
     )
