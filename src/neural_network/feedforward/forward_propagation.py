@@ -104,7 +104,7 @@ class ForwardPropagation:
 
         activations.append(output_activations)
 
-        return (output_activations, output_activation_function(output_activations))
+        return (activations, output_activation_function(output_activations))
 
     @staticmethod
     def predict(

@@ -7,9 +7,9 @@ from src.neural_network.feedforward.network import FeedforwardNeuralNetwork
 class TestNetwork(unittest.TestCase):
     def test_train(self):
         seed(42)
+
         # given
         hidden_layers = [3, 2]
-        weights = [[0], [1]]
         network = FeedforwardNeuralNetwork()
 
         # when
@@ -20,7 +20,7 @@ class TestNetwork(unittest.TestCase):
         )
 
         # then
-        self.assertEqual(output, weights)
+        self.assertEqual(output, [])
 
 
 if "__name__" == "__main__":

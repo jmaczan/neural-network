@@ -43,18 +43,18 @@ class FeedforwardNeuralNetwork:
         activation_function=rectifier,
         output_activation_function=softmax,
         learning_rate=0.01,
-        batch_size=10,
+        mini_batch_size=10,
         epochs=1,
     ):
-        (batch_size, training_set) = self_heal_train_input(
-            batch_size=batch_size, training_set=training_set
+        (mini_batch_size, training_set) = self_heal_train_input(
+            batch_size=mini_batch_size, training_set=training_set
         )
 
         validate_train_input(
             training_set=training_set,
             labels=labels,
             learning_rate=learning_rate,
-            batch_size=batch_size,
+            batch_size=mini_batch_size,
             epochs=epochs,
             hidden_layers=hidden_layers,
         )
@@ -75,17 +75,17 @@ class FeedforwardNeuralNetwork:
         epoch_index = 0
 
         while epoch_index < epochs:
-            batch_index = 0
+            mini_batch_index = 0
 
-            while batch_index * batch_size < len(training_set):
-                batch_start = batch_size * batch_index
-                batch_end = min(
-                    batch_size * (batch_index + 1),
+            while mini_batch_index * mini_batch_size < len(training_set):
+                mini_batch_start = mini_batch_size * mini_batch_index
+                mini_batch_end = min(
+                    mini_batch_size * (mini_batch_index + 1),
                     len(training_set),
                 )
 
-                mini_batch = training_set[batch_start:batch_end]
-                mini_batch_labels = labels[batch_start:batch_end]
+                mini_batch = training_set[mini_batch_start:mini_batch_end]
+                mini_batch_labels = labels[mini_batch_start:mini_batch_end]
 
                 (activations, predictions) = ForwardPropagation().forward_pass(
                     input_activations=mini_batch,  # TODO: here I assume array of input vectors, but in predict method in the same network I assume it to be just a single input vector
@@ -109,7 +109,10 @@ class FeedforwardNeuralNetwork:
 
                 gradient_vector = (
                     Backpropagation().compute_cost_function_gradient_vector(
-                        loss=loss, weights=self.weights, biases=self.biases
+                        loss=loss,
+                        weights=self.weights,
+                        biases=self.biases,
+                        activations=self.activations,
                     )
                 )
 
@@ -123,7 +126,7 @@ class FeedforwardNeuralNetwork:
                 self.weights = weights
                 self.biases = biases
 
-                batch_index = batch_index + 1
+                mini_batch_index = mini_batch_index + 1
 
             epoch_index = epoch_index + 1
 
