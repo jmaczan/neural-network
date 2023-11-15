@@ -18,10 +18,13 @@ class Backpropagation:
         return loss_function(predictions=predictions, labels=labels)
 
     @staticmethod
-    def compute_cost_function_gradient_vector(loss, weights, biases, activations):
+    def compute_cost_function_gradient_vector(
+        loss, weights, biases, activations, compute_hidden_layer_activation_derivative
+    ):
         """
         compute_derivative_of_cost_function_all_training_examples for all weights and biases in a single vector
         """
+
         todo()
 
     def compute_derivative_of_cost_function_all_training_examples(self):

@@ -7,8 +7,9 @@ https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-
 """
 
 
-from src.activation_function.rectifier import rectifier
-from src.activation_function.softmax import softmax
+from src.activation_function.activation_function import ActivationFunction
+from src.activation_function.rectifier import Rectifier, rectifier
+from src.activation_function.softmax import Softmax, softmax
 from src.loss_function.mean_squared_error import mean_squared_error
 from src.neural_network.feedforward.backpropagation import Backpropagation
 from src.neural_network.feedforward.forward_propagation import ForwardPropagation
@@ -40,8 +41,8 @@ class FeedforwardNeuralNetwork:
         labels,
         weights=[],
         biases=[],
-        activation_function=rectifier,
-        output_activation_function=softmax,
+        activation_function: ActivationFunction = Rectifier,
+        output_activation_function: ActivationFunction = Softmax,
         learning_rate=0.01,
         mini_batch_size=10,
         epochs=1,
@@ -91,8 +92,8 @@ class FeedforwardNeuralNetwork:
                     input_activations=mini_batch,  # TODO: here I assume array of input vectors, but in predict method in the same network I assume it to be just a single input vector
                     weights=self.weights,
                     biases=self.biases,
-                    activation_function=activation_function,
-                    output_activation_function=output_activation_function,
+                    activation_function=activation_function.activation_function,
+                    output_activation_function=output_activation_function.activation_function,
                 )
 
                 self.activations = activations
@@ -107,13 +108,13 @@ class FeedforwardNeuralNetwork:
 
                 print("Loss:", loss)
 
-                gradient_vector = (
-                    Backpropagation().compute_cost_function_gradient_vector(
-                        loss=loss,
-                        weights=self.weights,
-                        biases=self.biases,
-                        activations=self.activations,
-                    )
+                gradient_vector = Backpropagation().compute_cost_function_gradient_vector(
+                    loss=loss,
+                    weights=self.weights,
+                    biases=self.biases,
+                    activations=self.activations,
+                    compute_hidden_layer_activation_derivative=activation_function.derivative,
+                    compute_output_layer_activation_derivative=output_activation_function.derivative,
                 )
 
                 (weights, biases) = Backpropagation().update_weights_and_biases(
